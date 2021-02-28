@@ -23,10 +23,12 @@
 					request.getParameter("itemDesc"));
 			
 		} else if(request.getParameter("Action").equalsIgnoreCase("delete")) {
-			
+			//deleting item
+			Item itemObj = new Item();
+			stsMsg = itemObj.deleteItem(request.getParameter("itemID"));
 		}
 		session.setAttribute("statusMsg", stsMsg);			
-	} 
+	} 	
 %>
 <!DOCTYPE html>
 <html>

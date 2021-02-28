@@ -95,6 +95,7 @@ public class Item {
 								+ "</form></td>"
 						+ "<td><form method='post' action='item.jsp'>"
 						+ "<input name='itemID' type='hidden' value='" + itemID + "'>"
+						+ "<input name='itemCode' type='hidden' value='" + itemCode + "'>"
 						+ "<input name='Action' type='hidden' value='delete'>"
 						+ "<input name='btnRemove' type='submit' value='Remove'>"
 						+ "</form></td></tr>";
@@ -179,6 +180,35 @@ public class Item {
 			output = "updated successfully";
 		} catch (Exception e) {
 			output = "Error while updating";
+			System.err.println(e.getMessage());
+		}
+		
+		return output;		
+	}
+	
+	public String deleteItem(String itemID) {
+		String output = "";
+		
+		try {
+			Connection con = this.connect();
+			
+			if (con == null) {
+				return "Error connecting to database";
+			}
+			
+			//creating prepared statement
+			String query = "delete from items where itemID = ?";
+			PreparedStatement preparedStmt = con.prepareStatement(query);
+			
+			//binding values to prepared statement			
+			preparedStmt.setInt(1, Integer.parseInt(itemID));
+			
+			preparedStmt.execute();
+			con.close();
+			
+			output = "deleted successfully";
+		} catch (Exception e) {
+			output = "Error while deleting";
 			System.err.println(e.getMessage());
 		}
 		
