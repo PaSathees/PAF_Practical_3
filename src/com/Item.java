@@ -95,6 +95,7 @@ public class Item {
 								+ "</form></td>"
 						+ "<td><form method='post' action='item.jsp'>"
 						+ "<input name='itemID' type='hidden' value='" + itemID + "'>"
+						+ "<input name='Action' type='hidden' value='delete'>"
 						+ "<input name='btnRemove' type='submit' value='Remove'>"
 						+ "</form></td></tr>";
 			}
@@ -136,6 +137,8 @@ public class Item {
 				output += "Item name: <input name=\"itemName\" type=\"text\" value=\""+ itemName + "\"><br>";
 				output += "Item price: <input name=\"itemPrice\" type=\"text\" value=\""+ itemPrice + "\"><br>";
 				output += "Item description: <input name=\"itemDesc\" type=\"text\" value=\""+ itemDesc + "\"><br>";
+				output += "<input name='itemID' type='hidden' value='" + itemID + "'>";
+				output += "<input name='Action' type='hidden' value='update'>";
 				output += "<input type=\"submit\" name=\"btnSubmit\" value=\"save\"></form>";
 			}
 			
@@ -147,5 +150,38 @@ public class Item {
 		}
 		
 		return output;
+	}
+	
+	public String updateItem(String itemID, String code, String name, String price, String desc) {
+		String output = "";
+		
+		try {
+			Connection con = this.connect();
+			
+			if (con == null) {
+				return "Error connecting to database";
+			}
+			
+			//creating prepared statement
+			String query = "update items set itemCode = ?, itemName = ?, itemPrice = ?, itemDesc = ? where itemID = ?";
+			PreparedStatement preparedStmt = con.prepareStatement(query);
+			
+			//binding values to prepared statement
+			preparedStmt.setString(1, code);
+			preparedStmt.setString(2, name);
+			preparedStmt.setDouble(3, Double.parseDouble(price));
+			preparedStmt.setString(4, desc);
+			preparedStmt.setInt(5, Integer.parseInt(itemID));
+			
+			preparedStmt.execute();
+			con.close();
+			
+			output = "updated successfully";
+		} catch (Exception e) {
+			output = "Error while updating";
+			System.err.println(e.getMessage());
+		}
+		
+		return output;		
 	}
 }

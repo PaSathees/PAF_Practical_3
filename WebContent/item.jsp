@@ -4,14 +4,29 @@
 <%
 	//trying to test insert function--------------
 	if(request.getParameter("itemCode") != null){
-		Item itemObj = new Item();
-		String stsMsg = itemObj.insertItem(request.getParameter("itemCode"), 
-				request.getParameter("itemName"), 
-				request.getParameter("itemPrice"), 
-				request.getParameter("itemDesc"));
-		
-		session.setAttribute("statusMsg", stsMsg);
-	}
+		String stsMsg = "";		
+		if(request.getParameter("Action").equalsIgnoreCase("insert")){
+			//insert item			
+			Item itemObj = new Item();
+			stsMsg = itemObj.insertItem(request.getParameter("itemCode"), 
+					request.getParameter("itemName"), 
+					request.getParameter("itemPrice"), 
+					request.getParameter("itemDesc"));		
+			
+		} else if(request.getParameter("Action").equalsIgnoreCase("update")) {
+			//updating item
+			Item itemObj = new Item();
+			stsMsg = itemObj.updateItem(request.getParameter("itemID"), 
+					request.getParameter("itemCode"), 
+					request.getParameter("itemName"), 
+					request.getParameter("itemPrice"), 
+					request.getParameter("itemDesc"));
+			
+		} else if(request.getParameter("Action").equalsIgnoreCase("delete")) {
+			
+		}
+		session.setAttribute("statusMsg", stsMsg);			
+	} 
 %>
 <!DOCTYPE html>
 <html>
@@ -26,6 +41,7 @@
 		Item name: <input name="itemName" type="text"><br>
 		Item price: <input name="itemPrice" type="text"><br>
 		Item description: <input name="itemDesc" type="text"><br>
+		<input name="Action" type="hidden" value="insert">
 		<input type="submit" name="btnSubmit" value="save">		
 	</form>
 
