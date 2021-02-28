@@ -89,10 +89,13 @@ public class Item {
 				output += "<td>" + itemPrice + "</td>";
 				output += "<td>" + itemDesc + "</td>";
 				
-				output += "<td><input name='btnUpdate' type='button' value='Update'></td>"
-						+ "<td><form method='post' action='item.jsp'>"
-						+ "<input name='btnRemove' type='submit' value='Remove'>"
+				output += "<td><form method='post' action='itemUpdate.jsp'>"
 						+ "<input name='itemID' type='hidden' value='" + itemID + "'>"
+						+ "<input name='btnUpdate' type='submit' value='Update'>"
+								+ "</form></td>"
+						+ "<td><form method='post' action='item.jsp'>"
+						+ "<input name='itemID' type='hidden' value='" + itemID + "'>"
+						+ "<input name='btnRemove' type='submit' value='Remove'>"
 						+ "</form></td></tr>";
 			}
 			
@@ -101,6 +104,45 @@ public class Item {
 			
 		} catch (Exception e) {
 			output = "Error while reading the items";
+			System.err.println(e.getMessage());
+		}
+		
+		return output;
+	}
+	
+	public String getItemForUpdate(String itemID) {
+		String output = "";
+		
+		try {
+			Connection con = this.connect();
+			if (con == null) {
+				return "Error while connecting to get item for update";
+			}		
+			
+			String query = "select * from items where itemID = ?";
+			PreparedStatement preparedStatement = con.prepareStatement(query);
+			preparedStatement.setInt(1, Integer.parseInt(itemID));
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			if (rs.next()) {				
+				String itemCode = rs.getString("itemCode");
+				String itemName = rs.getString("itemName");
+				String itemPrice = rs.getString("itemPrice");
+				String itemDesc = rs.getString("itemDesc");
+				
+				//preparing form string
+				output = "<form method='post' action='item.jsp'>";				
+				output += "Item code: <input name=\"itemCode\" type=\"text\" value=\""+ itemCode + "\"><br>";
+				output += "Item name: <input name=\"itemName\" type=\"text\" value=\""+ itemName + "\"><br>";
+				output += "Item price: <input name=\"itemPrice\" type=\"text\" value=\""+ itemPrice + "\"><br>";
+				output += "Item description: <input name=\"itemDesc\" type=\"text\" value=\""+ itemDesc + "\"><br>";
+				output += "<input type=\"submit\" name=\"btnSubmit\" value=\"save\"></form>";
+			}
+			
+			con.close();			
+			
+		} catch (Exception e) {
+			output = "Error while getting item for update";
 			System.err.println(e.getMessage());
 		}
 		

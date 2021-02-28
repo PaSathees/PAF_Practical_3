@@ -36,5 +36,6 @@
 		Item itemObj = new Item();
 		out.print(itemObj.readItems());
 	%>
+	
 </body>
 </html>
