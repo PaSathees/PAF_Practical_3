@@ -28,7 +28,7 @@ public class Item {
 			}
 			
 			//creating prepared statement
-			String query = "insert into items ('itemID', 'itemCode', 'itemName', 'itemPrice', 'itemDesc')"
+			String query = "insert into items (itemID, itemCode, itemName, itemPrice, itemDesc)"
 					+ " values (?, ?, ?, ?, ?)";
 			PreparedStatement preparedStmt = con.prepareStatement(query);
 			
