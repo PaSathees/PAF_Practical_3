@@ -17,9 +17,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Item management</title>
+<link rel="stylesheet" href="Views/bootstrap.min.css" >
 </head>
 <body>
-	<h1>Update Item</h1>	
-	<% out.print(session.getAttribute("formMsg")); %>
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<h1>Update Item</h1>	
+				<% out.print(session.getAttribute("formMsg")); %>				
+			</div>
+		</div>
+	</div>	
 </body>
 </html>
