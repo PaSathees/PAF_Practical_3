@@ -90,14 +90,14 @@ public class Item {
 				output += "<td>" + itemDesc + "</td>";
 				
 				output += "<td><form method='post' action='itemUpdate.jsp'>"
-						+ "<input name='itemID' type='hidden' value='" + itemID + "'>"
-						+ "<input name='btnUpdate' type='submit' value='Update'>"
+						+ "<input name='itemID' class='form-control' type='hidden' value='" + itemID + "'>"
+						+ "<input name='btnUpdate' class='btn btn-primary' type='submit' value='Update'>"
 								+ "</form></td>"
 						+ "<td><form method='post' action='item.jsp'>"
-						+ "<input name='itemID' type='hidden' value='" + itemID + "'>"
-						+ "<input name='itemCode' type='hidden' value='" + itemCode + "'>"
-						+ "<input name='Action' type='hidden' value='delete'>"
-						+ "<input name='btnRemove' type='submit' value='Remove'>"
+						+ "<input name='itemID' class='form-control' type='hidden' value='" + itemID + "'>"
+						+ "<input name='itemCode' class='form-control' type='hidden' value='" + itemCode + "'>"
+						+ "<input name='Action' class='form-control' type='hidden' value='delete'>"
+						+ "<input name='btnRemove' type='submit' value='Remove' class='btn btn-danger'>"
 						+ "</form></td></tr>";
 			}
 			
@@ -134,13 +134,13 @@ public class Item {
 				
 				//preparing form string
 				output = "<form method='post' action='item.jsp'>";				
-				output += "Item code: <input name=\"itemCode\" type=\"text\" value=\""+ itemCode + "\"><br>";
-				output += "Item name: <input name=\"itemName\" type=\"text\" value=\""+ itemName + "\"><br>";
-				output += "Item price: <input name=\"itemPrice\" type=\"text\" value=\""+ itemPrice + "\"><br>";
-				output += "Item description: <input name=\"itemDesc\" type=\"text\" value=\""+ itemDesc + "\"><br>";
+				output += "Item code: <input name=\"itemCode\" class='form-control' type=\"text\" value=\""+ itemCode + "\"><br>";
+				output += "Item name: <input name=\"itemName\" class='form-control' type=\"text\" value=\""+ itemName + "\"><br>";
+				output += "Item price: <input name=\"itemPrice\" type=\"text\" class='form-control' value=\""+ itemPrice + "\"><br>";
+				output += "Item description: <input name=\"itemDesc\" type=\"text\" class='form-control' value=\""+ itemDesc + "\"><br>";
 				output += "<input name='itemID' type='hidden' value='" + itemID + "'>";
 				output += "<input name='Action' type='hidden' value='update'>";
-				output += "<input type=\"submit\" name=\"btnSubmit\" value=\"save\"></form>";
+				output += "<input type=\"submit\" name=\"btnSubmit\" value=\"save\" style=\"btn btn-primary\"></form>";
 			}
 			
 			con.close();			

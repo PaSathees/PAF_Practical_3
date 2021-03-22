@@ -43,21 +43,24 @@
 			<div class="col">
 				<h1>Items Management</h1>
 				<form method="post" action="item.jsp">
-					Item code: <input name="itemCode" type="text"><br>
-					Item name: <input name="itemName" type="text"><br>
-					Item price: <input name="itemPrice" type="text"><br>
-					Item description: <input name="itemDesc" type="text"><br>
+					Item code: <input name="itemCode" class="form-control" type="text"><br>
+					Item name: <input name="itemName" class="form-control" type="text"><br>
+					Item price: <input name="itemPrice" class="form-control" type="text"><br>
+					Item description: <input name="itemDesc" class="form-control" type="text"><br>
 					<input name="Action" type="hidden" value="insert">
-					<input type="submit" name="btnSubmit" value="save">		
+					<input type="submit" name="btnSubmit" value="save" class="btn btn-primary">		
 				</form>
-			
-				<% out.print(session.getAttribute("statusMsg")); %>
+				
+				<div class="alert alert-success">
+					<% out.print(session.getAttribute("statusMsg")); %>
+				</div>	
 				<br>
 				
 				<%
 					Item itemObj = new Item();
 					out.print(itemObj.readItems());
 				%>
+				
 			</div>
 		</div>
 	</div>	
